@@ -43,7 +43,7 @@ let equal = document.querySelector('.equal')
 let screen = '';
 
 function output() {
-  screenText.innerHTML = screen;
+  screenText.innerHTML = screen
 }
 
 deleteButton.addEventListener('click', (e) => {
@@ -67,20 +67,16 @@ for (let i = 0; i < buttons.length; i++) {
 
 equal.addEventListener('click', () => {
   if (screen.includes('+')) {
-    console.log(screen.match(/[^\+]+/gm));
     screen = +screen.match(/[^\+]+/gm)[0] + +screen.match(/[^\+]+/gm)[1];
     output()
-  } else if (screen.includes('-')) {
-    console.log(screen.match(/[^\-]+/gm));
-    screen = +screen.match(/-*[^\-]+/gm)[0] - +screen.match(/[^\-]+/gm)[1];
-    output()
   } else if (screen.includes('*')) {
-    console.log(screen.match(/[^\*]+/gm));
     screen = +screen.match(/[^\*]+/gm)[0] * +screen.match(/[^\*]+/gm)[1];
     output()
   } else if (screen.includes('/')) {
-    console.log(screen.match(/[^\/]+/gm));
     screen = +screen.match(/[^\/]+/gm)[0] / +screen.match(/[^\/]+/gm)[1];
+    output()
+  } else if (screen.includes('-')) {
+    screen = +screen.match(/-*[^\-]+/gm)[0] - +screen.match(/[^\-]+/gm)[1];
     output()
   }
 })
