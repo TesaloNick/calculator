@@ -37,12 +37,26 @@
 let buttons = document.querySelectorAll('.button')
 let operations = document.querySelectorAll('.operation')
 let screenText = document.querySelector('.calculator__screen')
+let nullButton = document.querySelector('.null')
+let deleteButton = document.querySelector('.delete')
 let equal = document.querySelector('.equal')
 let screen = '';
 
 function output() {
   screenText.innerHTML = screen;
 }
+
+deleteButton.addEventListener('click', (e) => {
+  screen = String(screen).split('')
+  delete screen[screen.length - 1]
+  screen = screen.join('')
+  output()
+})
+
+nullButton.addEventListener('click', (e) => {
+  screen = '';
+  output()
+})
 
 for (let i = 0; i < buttons.length; i++) {
   buttons[i].addEventListener('click', (e) => {
@@ -51,27 +65,22 @@ for (let i = 0; i < buttons.length; i++) {
   })
 }
 
-
 equal.addEventListener('click', () => {
   if (screen.includes('+')) {
-    console.log(screen.match(/[1-9]+/gm));
-    screen = +screen.match(/[1-9]+/gm)[0] + +screen.match(/[1-9]+/gm)[1];
-    console.log(screen);
+    console.log(screen.match(/[^\+]+/gm));
+    screen = +screen.match(/[^\+]+/gm)[0] + +screen.match(/[^\+]+/gm)[1];
     output()
   } else if (screen.includes('-')) {
-    console.log(screen.match(/[1-9]+/gm));
-    screen = +screen.match(/[1-9]+/gm)[0] - +screen.match(/[1-9]+/gm)[1];
-    console.log(screen);
+    console.log(screen.match(/[^\-]+/gm));
+    screen = +screen.match(/-*[^\-]+/gm)[0] - +screen.match(/[^\-]+/gm)[1];
     output()
   } else if (screen.includes('*')) {
-    console.log(screen.match(/[1-9]+/gm));
-    screen = +screen.match(/[1-9]+/gm)[0] * +screen.match(/[1-9]+/gm)[1];
-    console.log(screen);
+    console.log(screen.match(/[^\*]+/gm));
+    screen = +screen.match(/[^\*]+/gm)[0] * +screen.match(/[^\*]+/gm)[1];
     output()
   } else if (screen.includes('/')) {
-    console.log(screen.match(/[1-9]+/gm));
-    screen = +screen.match(/[1-9]+/gm)[0] / +screen.match(/[1-9]+/gm)[1];
-    console.log(screen);
+    console.log(screen.match(/[^\/]+/gm));
+    screen = +screen.match(/[^\/]+/gm)[0] / +screen.match(/[^\/]+/gm)[1];
     output()
   }
 })
